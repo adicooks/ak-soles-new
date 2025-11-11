@@ -107,12 +107,26 @@
     </div>
 
     <script>
+        // Get cart cost from localStorage
+        const cartCostStr = localStorage.getItem("totalCost");
+        const cartCost = parseFloat(cartCostStr || "0");
+        
         function purchase() {
             alert("Thank you for your purchase!");
+            // Clear cart after purchase
+            localStorage.removeItem("productsInCart");
+            localStorage.removeItem("cartNumbers");
+            localStorage.removeItem("totalCost");
+            window.location.href = "index.html";
         }
 
+        // Update price display
         const infoPriceText = document.getElementById("info-price-text");
-        infoPriceText.textContent = ` - $${(cartCost * 1.065).toFixed(2)}`;
+        if (infoPriceText && cartCost > 0) {
+            infoPriceText.textContent = ` - $${(cartCost * 1.065).toFixed(2)}`;
+        } else if (infoPriceText) {
+            infoPriceText.textContent = " - $0.00";
+        }
     </script>
 </body>
 

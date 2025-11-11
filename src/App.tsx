@@ -9,6 +9,7 @@ import Contact from './components/Contact'
 import Footer from './components/Footer'
 import CategoryPage from './pages/CategoryPage'
 import CartPage from './pages/CartPage'
+import CheckoutPage from './pages/CheckoutPage'
 import SearchPage from './pages/SearchPage'
 import ProductPage from './pages/ProductPage'
 
@@ -86,6 +87,13 @@ export default function App() {
     })
   }
 
+  const clearCart = () => {
+    setCartItems({})
+    localStorage.removeItem('productsInCart')
+    localStorage.removeItem('cartNumbers')
+    localStorage.removeItem('totalCost')
+  }
+
   return (
     <BrowserRouter>
       <div className="min-h-screen bg-black text-white">
@@ -120,6 +128,10 @@ export default function App() {
           <Route
             path="/cart"
             element={<CartPage cartItems={cartItems} onUpdateCart={setCartItems} />}
+          />
+          <Route
+            path="/checkout"
+            element={<CheckoutPage cartItems={cartItems} onClearCart={clearCart} />}
           />
         </Routes>
         <Footer />

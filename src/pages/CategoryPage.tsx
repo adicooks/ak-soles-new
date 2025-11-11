@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { getProductsByCategory } from '../data/products'
 
@@ -19,6 +20,26 @@ interface CategoryPageProps {
 export default function CategoryPage({ category, onAddToCart }: CategoryPageProps) {
   const products = getProductsByCategory(category)
   const categoryTitle = category.charAt(0).toUpperCase() + category.slice(1)
+  const [showSizePopup, setShowSizePopup] = useState(false)
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
+
+  const availableSizes = [8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12, 12.5, 13]
+
+  const handleAddToCartClick = (product: Product) => {
+    setSelectedProduct(product)
+    setShowSizePopup(true)
+  }
+
+  const handleSizeSelect = (size: number) => {
+    if (selectedProduct) {
+      onAddToCart({
+        ...selectedProduct,
+        size: size
+      })
+      setShowSizePopup(false)
+      setSelectedProduct(null)
+    }
+  }
 
   return (
     <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-950 min-h-screen">
@@ -64,7 +85,7 @@ export default function CategoryPage({ category, onAddToCart }: CategoryPageProp
                 </div>
 
                 <button
-                  onClick={() => onAddToCart(product)}
+                  onClick={() => handleAddToCartClick(product)}
                   className="w-full bg-primary text-black font-bold py-2 rounded-lg hover:opacity-90 transition-opacity"
                 >
                   Add to Cart
@@ -74,6 +95,36 @@ export default function CategoryPage({ category, onAddToCart }: CategoryPageProp
           ))}
         </div>
       </div>
+
+      {/* Size Selection Popup */}
+      {showSizePopup && selectedProduct && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-gray-900 rounded-lg p-8 max-w-md w-full mx-4">
+            <h2 className="text-2xl font-bold mb-2 text-white">{selectedProduct.name}</h2>
+            <p className="text-gray-400 mb-6">Select Size</p>
+            <div className="grid grid-cols-3 gap-3 mb-6">
+              {availableSizes.map((size) => (
+                <button
+                  key={size}
+                  onClick={() => handleSizeSelect(size)}
+                  className="bg-gray-800 text-white py-3 px-4 rounded-lg hover:bg-primary hover:text-black transition-colors font-bold"
+                >
+                  {size}
+                </button>
+              ))}
+            </div>
+            <button
+              onClick={() => {
+                setShowSizePopup(false)
+                setSelectedProduct(null)
+              }}
+              className="w-full bg-gray-700 text-white py-3 rounded-lg hover:bg-gray-600 transition-colors"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      )}
     </section>
   )
 }

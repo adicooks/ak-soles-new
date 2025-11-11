@@ -1,15 +1,17 @@
 import { responsiveManager } from "./responsive";
+import { ALL_PRODUCTS } from "./data/products";
 
-interface Product {
+interface CartItem {
   name: string;
   tag: string;
   price: number;
   size: number;
+  image: string;
   inCart: number;
 }
 
 interface CartItems {
-  [key: string]: Product;
+  [key: string]: CartItem;
 }
 
 /**
@@ -18,153 +20,15 @@ interface CartItems {
 function initializeCart(): void {
   const carts = document.querySelectorAll(".atc") as NodeListOf<HTMLElement>;
 
-  const products: Product[] = [
-    // Nike
-    {
-      name: "Nike Dunk Low Needlework",
-      tag: "needle",
-      price: 160,
-      size: 7,
-      inCart: 0,
-    },
-    {
-      name: "Nike Dunk Low Gardenia",
-      tag: "gardenia",
-      price: 225,
-      size: 9.5,
-      inCart: 0,
-    },
-    {
-      name: "Nike Dunk Low SLAG",
-      tag: "slag",
-      price: 200,
-      size: 9,
-      inCart: 0,
-    },
-    {
-      name: "Nike Dunk Low Panda",
-      tag: "panda",
-      price: 150,
-      size: 11,
-      inCart: 0,
-    },
-    {
-      name: "Nike Dunk Low Ebay",
-      tag: "ebay",
-      price: 150,
-      size: 8.5,
-      inCart: 0,
-    },
-    {
-      name: "Nike Dunk Low Fuschia",
-      tag: "fuschia",
-      price: 175,
-      size: 7,
-      inCart: 0,
-    },
-    {
-      name: "Nike Air Force 1 Jackie Robinson",
-      tag: "jackie",
-      price: 300,
-      size: 11,
-      inCart: 0,
-    },
-    {
-      name: "Nike KD 15 B.A.D",
-      tag: "kd",
-      price: 290,
-      size: 11,
-      inCart: 0,
-    },
-
-    // Jordan
-    {
-      name: "Air Jordan 1 Low Doernbecher",
-      tag: "riddhi",
-      price: 375,
-      size: 8.5,
-      inCart: 0,
-    },
-    {
-      name: "Air Jordan 3 Reimagined",
-      tag: "reimagined",
-      price: 275,
-      size: 10,
-      inCart: 0,
-    },
-    {
-      name: "Air Jordan 4 Seafoam",
-      tag: "seafoam",
-      price: 250,
-      size: 5.5,
-      inCart: 0,
-    },
-    {
-      name: "Air Jordan 4 Craft",
-      tag: "craft",
-      price: 250,
-      size: 11,
-      inCart: 0,
-    },
-    {
-      name: "Air Jordan 4 Midnight Navy",
-      tag: "midnight",
-      price: 300,
-      size: 10.5,
-      inCart: 0,
-    },
-    {
-      name: "Air Jordan 4 Black Canvas",
-      tag: "canvas",
-      price: 375,
-      size: 12,
-      inCart: 0,
-    },
-    {
-      name: "Air Jordan 11 Cherry",
-      tag: "cherry",
-      price: 250,
-      size: 12,
-      inCart: 0,
-    },
-
-    // Yeezy
-    {
-      name: "Yeezy Boost 350 Onyx",
-      tag: "onyx",
-      price: 275,
-      size: 9,
-      inCart: 0,
-    },
-    {
-      name: "Yeezy Boost 350 Pirate Black",
-      tag: "pirate",
-      price: 300,
-      size: 9,
-      inCart: 0,
-    },
-    {
-      name: "Yeezy Foam Runner Mx Cinder",
-      tag: "cinder",
-      price: 150,
-      size: 9,
-      inCart: 0,
-    },
-    {
-      name: "Yeezy Foam Runner Clay Taupe",
-      tag: "taupe",
-      price: 150,
-      size: 9,
-      inCart: 0,
-    },
-    {
-      name: "Adidas Yeezy Slide Onyx",
-      tag: "slide",
-      price: 150,
-      size: 9,
-      inCart: 0,
-    },
-  ];
+  // Convert products from data/products.ts to the format expected by cart
+  const products: CartItem[] = ALL_PRODUCTS.map(product => ({
+    name: product.name,
+    tag: product.tag,
+    price: product.price,
+    size: product.size,
+    image: product.image,
+    inCart: 0,
+  }));
 
   // Add event listeners to all "Add to Cart" buttons
   carts.forEach((cart) => {
@@ -199,7 +63,7 @@ function initializeCart(): void {
   /**
    * Update cart numbers when product is added
    */
-  function cartNumbers(product: Product): void {
+  function cartNumbers(product: CartItem): void {
     alert(product.name + " was added to your cart.");
 
     let productNumbers = localStorage.getItem("cartNumbers");
@@ -219,7 +83,7 @@ function initializeCart(): void {
   /**
    * Add item to cart in localStorage
    */
-  function setItems(product: Product): void {
+  function setItems(product: CartItem): void {
     let cartItems: CartItems | null = null;
 
     const storedItems = localStorage.getItem("productsInCart");
@@ -249,7 +113,7 @@ function initializeCart(): void {
   /**
    * Update total cost of cart
    */
-  function totalCost(product: Product): void {
+  function totalCost(product: CartItem): void {
     const cartCostStr = localStorage.getItem("totalCost");
     let cartCost = parseFloat(cartCostStr || "0");
 
@@ -285,7 +149,7 @@ function initializeCart(): void {
           productContainer.innerHTML += `
             <div class="product">
               <ion-icon name="trash-outline" class="remove-item" style="font-size: 36px; color: white;"></ion-icon>
-              <img src="img/${item.tag}.png">
+              <img src="${item.image}">
               <div class="product-details">
                 <span class="product-title" style="color: white;">${item.name}</span>
                 <span class="product-size" style="color: white;">Size ${item.size}</span>

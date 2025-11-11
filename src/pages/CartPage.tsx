@@ -133,12 +133,12 @@ export default function CartPage({ cartItems, onUpdateCart }: CartPageProps) {
                 <span className="text-primary">${total.toFixed(2)}</span>
               </div>
 
-              <a
-                href="/checkout.html"
+              <Link
+                to="/checkout"
                 className="block text-center w-full mt-6 bg-primary text-black font-bold py-3 rounded-lg hover:opacity-90 transition-opacity text-lg"
               >
                 Proceed to Checkout
-              </a>
+              </Link>
             </div>
 
             {/* Continue Shopping */}

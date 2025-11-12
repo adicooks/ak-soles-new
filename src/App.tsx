@@ -12,6 +12,7 @@ import CartPage from './pages/CartPage'
 import CheckoutPage from './pages/CheckoutPage'
 import SearchPage from './pages/SearchPage'
 import ProductPage from './pages/ProductPage'
+import { Analytics } from '@vercel/analytics/react';
 
 interface CartItem {
   name: string
@@ -97,6 +98,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <div className="min-h-screen bg-black text-white">
+        <Analytics />
         <Navbar cartCount={cartCount} />
         <Routes>
           <Route

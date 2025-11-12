@@ -270,7 +270,7 @@ window.onload = function () {
               `;
                 });
 
-                let cartTotal = cartCost * 1.065;
+                let cartTotal = cartCost * 1.00;
                 cartTotal = cartTotal.toFixed(2);
 
 

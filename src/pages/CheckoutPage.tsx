@@ -20,7 +20,7 @@ export default function CheckoutPage({ cartItems, onClearCart }: CheckoutPagePro
     0
   )
   const tax = subtotal * 0.00
-  const total = subtotal + tax
+  const total = subtotal
 
   const handlePurchase = () => {
     alert('Thank you for your purchase!')
@@ -35,7 +35,7 @@ export default function CheckoutPage({ cartItems, onClearCart }: CheckoutPagePro
           {/* Left Side - Order Summary */}
           <div className="bg-gray-900 rounded-lg p-8">
             <h2 className="text-3xl font-bold mb-6 text-primary">Order Summary</h2>
-
+            
             <div className="space-y-4 mb-8">
               {Object.entries(cartItems).map(([tag, item]) => (
                 <div key={tag} className="flex justify-between items-center border-b border-gray-800 pb-3">
@@ -54,7 +54,7 @@ export default function CheckoutPage({ cartItems, onClearCart }: CheckoutPagePro
                 <span>${subtotal.toFixed(2)}</span>
               </div>
               <div className="flex justify-between text-lg">
-                <span>Tax (6.5%):</span>
+                <span>Free Shipping:</span>
                 <span>${tax.toFixed(2)}</span>
               </div>
               <div className="flex justify-between text-2xl font-bold border-t border-gray-800 pt-3">

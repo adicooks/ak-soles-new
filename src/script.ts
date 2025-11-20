@@ -165,12 +165,12 @@ function initializeCart(): void {
           `;
         });
 
-        const cartTotal = (parseFloat(cartCostStr || "0") * 1.065).toFixed(2);
+        const cartTotal = (parseFloat(cartCostStr || "0") * 1.00).toFixed(2);
 
         productContainer.innerHTML += `
           <div class="basketTotalContainer">
             <h4 class="basketTotalTitle" style="color: white;">
-              Basket Total <br> <i> (6.5% Tax)</i>
+              Basket Total
             </h4>
             <h4 class="basketTotal" style="color: white;">
               $${cartTotal}

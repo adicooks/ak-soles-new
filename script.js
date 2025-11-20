@@ -113,7 +113,7 @@ window.onload = function () {
 
         //yeezy
         {
-            name: "Adidas Yeezy Boost 350 Onyx",
+            name: "Yeezy Boost 350 Onyx",
             tag: "onyx",
             price: 275,
             size: 9,
@@ -121,7 +121,7 @@ window.onload = function () {
         },
 
         {
-            name: "Adidas Yeezy Boost 350 Pirate Black",
+            name: "Yeezy Boost 350 Pirate Black",
             tag: "pirate",
             price: 300,
             size: 9,
@@ -129,7 +129,7 @@ window.onload = function () {
         },
 
         {
-            name: "Adidas Yeezy Foam Runner Mx Cinder",
+            name: "Yeezy Foam Runner Mx Cinder",
             tag: "cinder",
             price: 150,
             size: 9,
@@ -137,7 +137,7 @@ window.onload = function () {
         },
 
         {
-            name: "Adidas Yeezy Foam Runner Clay Taupe",
+            name: "Yeezy Foam Runner Clay Taupe",
             tag: "taupe",
             price: 150,
             size: 9,
@@ -277,7 +277,7 @@ window.onload = function () {
                 productContainer.innerHTML += `
                     <div class="basketTotalContainer">
                         <h4 class="basketTotalTitle" style="color: white;">
-                            Basket Total <br> <i> (6.5% Tax)</i>
+                            Basket Total
                         </h4>
                         <h4 class="basketTotal" style="color: white;">
                             $${cartTotal}
